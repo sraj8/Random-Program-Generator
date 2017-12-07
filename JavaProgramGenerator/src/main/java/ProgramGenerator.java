@@ -86,7 +86,7 @@ public class ProgramGenerator {
 
     public static void readGrammarFile(){
 
-        Scanner fileScan = getScanner("src/main/grammar.txt");
+        Scanner fileScan = getScanner("src/main/resources/grammar.txt");
 
         while(fileScan.hasNext()){
             String grammar = fileScan.nextLine().toString();
@@ -114,7 +114,7 @@ public class ProgramGenerator {
 
     public static void readTerminalNonTerminal(){
 
-        Scanner fileScan = getScanner("src/main/TerminalNonTerminal.txt");
+        Scanner fileScan = getScanner("src/main/resources/TerminalNonTerminal.txt");
 
         while(fileScan.hasNext()){
             String terminalNonTerminal = fileScan.nextLine().toString();
