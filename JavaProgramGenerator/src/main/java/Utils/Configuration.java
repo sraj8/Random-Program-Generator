@@ -3,10 +3,10 @@ package Utils;
 import java.util.List;
 
 public class Configuration {
-    private static int maxLinesOfCode, maxClasses, maxMethodCalls, maxMethodsInClass, maxInterfaces;
-    private static int maxMethodsInInterface, maxInterfacesToImplement, maxIntValue, maxStringLength;
-    private static int maxVariableNameLength;
-    private static List<String> allowedTypes, accessModifiers;
+    private  int maxLinesOfCode, maxClasses, maxMethodCalls, maxMethodsInClass, maxInterfaces;
+    private  int maxMethodsInInterface, maxInterfacesToImplement, maxIntValue, maxStringLength;
+    private  int maxVariableNameLength;
+    private  List<String> allowedTypes, accessModifiers;
 
     private Configuration(){};
 
@@ -19,99 +19,99 @@ public class Configuration {
         return configuration;
     }
 
-    public static int getMaxLinesOfCode() {
+    public int getMaxLinesOfCode() {
         return maxLinesOfCode;
     }
 
-    public static void setMaxLinesOfCode(int maxLinesOfCode) {
-        Configuration.maxLinesOfCode = maxLinesOfCode;
+    public void setMaxLinesOfCode(int maxLinesOfCode) {
+        this.maxLinesOfCode = maxLinesOfCode;
     }
 
-    public static int getMaxClasses() {
+    public int getMaxClasses() {
         return maxClasses;
     }
 
-    public static void setMaxClasses(int maxClasses) {
-        Configuration.maxClasses = maxClasses;
+    public void setMaxClasses(int maxClasses) {
+        this.maxClasses = maxClasses;
     }
 
-    public static int getMaxMethodCalls() {
+    public int getMaxMethodCalls() {
         return maxMethodCalls;
     }
 
-    public static void setMaxMethodCalls(int maxMethodCalls) {
-        Configuration.maxMethodCalls = maxMethodCalls;
+    public void setMaxMethodCalls(int maxMethodCalls) {
+        this.maxMethodCalls = maxMethodCalls;
     }
 
-    public static int getMaxMethodsInClass() {
+    public int getMaxMethodsInClass() {
         return maxMethodsInClass;
     }
 
-    public static void setMaxMethodsInClass(int maxMethodsInClass) {
-        Configuration.maxMethodsInClass = maxMethodsInClass;
+    public void setMaxMethodsInClass(int maxMethodsInClass) {
+        this.maxMethodsInClass = maxMethodsInClass;
     }
 
-    public static int getMaxInterfaces() {
+    public int getMaxInterfaces() {
         return maxInterfaces;
     }
 
-    public static void setMaxInterfaces(int maxInterfaces) {
-        Configuration.maxInterfaces = maxInterfaces;
+    public void setMaxInterfaces(int maxInterfaces) {
+        this.maxInterfaces = maxInterfaces;
     }
 
-    public static int getMaxMethodsInInterface() {
+    public int getMaxMethodsInInterface() {
         return maxMethodsInInterface;
     }
 
-    public static void setMaxMethodsInInterface(int maxMethodsInInterface) {
-        Configuration.maxMethodsInInterface = maxMethodsInInterface;
+    public void setMaxMethodsInInterface(int maxMethodsInInterface) {
+        this.maxMethodsInInterface = maxMethodsInInterface;
     }
 
-    public static int getMaxInterfacesToImplement() {
+    public int getMaxInterfacesToImplement() {
         return maxInterfacesToImplement;
     }
 
-    public static void setMaxInterfacesToImplement(int maxInterfacesToImplement) {
-        Configuration.maxInterfacesToImplement = maxInterfacesToImplement;
+    public void setMaxInterfacesToImplement(int maxInterfacesToImplement) {
+        this.maxInterfacesToImplement = maxInterfacesToImplement;
     }
 
-    public static int getMaxIntValue() {
+    public int getMaxIntValue() {
         return maxIntValue;
     }
 
-    public static void setMaxIntValue(int maxIntValue) {
-        Configuration.maxIntValue = maxIntValue;
+    public void setMaxIntValue(int maxIntValue) {
+        this.maxIntValue = maxIntValue;
     }
 
-    public static int getMaxStringLength() {
+    public int getMaxStringLength() {
         return maxStringLength;
     }
 
-    public static void setMaxStringLength(int maxStringLength) {
-        Configuration.maxStringLength = maxStringLength;
+    public void setMaxStringLength(int maxStringLength) {
+        this.maxStringLength = maxStringLength;
     }
 
-    public static int getMaxVariableNameLength() {
+    public int getMaxVariableNameLength() {
         return maxVariableNameLength;
     }
 
-    public static void setMaxVariableNameLength(int maxVariableNameLength) {
-        Configuration.maxVariableNameLength = maxVariableNameLength;
+    public void setMaxVariableNameLength(int maxVariableNameLength) {
+        this.maxVariableNameLength = maxVariableNameLength;
     }
 
-    public static List<String> getAllowedTypes() {
+    public List<String> getAllowedTypes() {
         return allowedTypes;
     }
 
-    public static void setAllowedTypes(List<String> allowedTypes) {
-        Configuration.allowedTypes = allowedTypes;
+    public void setAllowedTypes(List<String> allowedTypes) {
+        this.allowedTypes = allowedTypes;
     }
 
-    public static List<String> getAccessModifiers() {
+    public List<String> getAccessModifiers() {
         return accessModifiers;
     }
 
-    public static void setAccessModifiers(List<String> accessModifiers) {
-        Configuration.accessModifiers = accessModifiers;
+    public void setAccessModifiers(List<String> accessModifiers) {
+        this.accessModifiers = accessModifiers;
     }
 }
