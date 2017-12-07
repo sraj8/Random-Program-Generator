@@ -36,7 +36,7 @@ public class Utilities {
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
             DefaultHandler handler = new DefaultHandler(){
-                
+
             };
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
