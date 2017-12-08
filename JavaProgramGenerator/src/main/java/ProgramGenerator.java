@@ -85,9 +85,7 @@ public class ProgramGenerator {
         expressionGeneratorStack.push(initialExpressionBreak[2].trim());
     }
 
-    public static int random_number(int Min, int Max){
-        return Min + (int)(Math.random() * ((Max - Min) + 1));
-    }
+
 
 
     public static  void generateExpression(){
@@ -110,7 +108,7 @@ public class ProgramGenerator {
                 //recursive call will happen here - need to fix this
                 if (currentTopExpression.trim().equals("<expression>")) {
 
-                    int randomExpressionNumber = random_number(0,expressionList.size()-1);
+                    int randomExpressionNumber = utilities.random_number(0,expressionList.size()-1);
 
                     if(randomExpressionNumber == 0){
                         //inserts expression <var> := <expression> <op> <expression> recursively

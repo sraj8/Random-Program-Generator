@@ -128,6 +128,10 @@ public class Utilities {
         return fileScan;
     }
 
+    public static int random_number(int Min, int Max){
+        return Min + (int)(Math.random() * ((Max - Min) + 1));
+    }
+
 
 
 }
