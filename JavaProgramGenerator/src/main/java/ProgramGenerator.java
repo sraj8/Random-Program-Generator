@@ -33,11 +33,38 @@ public class ProgramGenerator {
     static  Queue<String> topQueue;
 
 
+   private static void initializeAllDataHolders() {
+       //stack for processing right hand of expression
+       rightStack = new Stack<>();
+       //result after processing topqueue
+       result = new StringBuffer();
+       //queue for processing left hand of expression
+       leftQueue =  new LinkedList<>();
+       //regex for the variable, class and other names
+       regexMap = new HashMap<>();
+       utilities = new Utilities();
+       //class and intergace
+       topList = new ArrayList<>();
+       //currently expression
+       lowList = new ArrayList<>();
+       //all other grammar which are not part of top and low list
+       grammarMap = new HashMap<>();
+       //grammar selected from top list
+       topQueue = new LinkedList<>();
+       //count of lowlist elements in lowlist -e.g <expression>,3
+       lowListElement = new HashMap<>();
+
+    }
+
+
 
     public static void main(String[] args) {
         utilities = new Utilities();
 
-       // initializeAllDataHolders();
+        initializeAllDataHolders();
+
+
+
 
 
         //make list top-level mid-level and low-level
@@ -65,21 +92,7 @@ public class ProgramGenerator {
         System.out.println(result.toString());
     }
 
-    {
 
-        rightStack = new Stack<>();
-        result = new StringBuffer();
-        leftQueue =  new LinkedList<>();
-        regexMap = new HashMap<>();
-        utilities = new Utilities();
-        topList = new ArrayList<>();
-        lowList = new ArrayList<>();
-        grammarMap = new HashMap<>();
-        topQueue = new LinkedList<>();
-        lowListElement = new HashMap<>();
-
-
-    }
 
     public static void queueProcessing() {
         /*
@@ -98,59 +111,62 @@ public class ProgramGenerator {
             4. for left queue - check for element in map and solve
             5. same for right queue
          */
+        int topLevelCount = 3;
 
 
 
-        while(!topQueue.isEmpty()){
-            String element = topQueue.peek();
-            if(lowListElement.containsKey(element)){
-                // check count and iterate
-                int lowElementCount = lowListElement.get(element);
-                while(lowElementCount!=0){
-                    String lowContent = topQueue.peek();
+        while(topLevelCount!=0) {
 
-                    if(element.equals("<expression>")){
-                      String resultFromExpression = Generator.evaluateExpression(lowContent);
-                      result.append(" "+resultFromExpression);
-                    }
+            while (!topQueue.isEmpty()) {
+                String element = topQueue.peek();
+                if (lowListElement.containsKey(element)) {
+                    // check count and iterate
+                    int lowElementCount = lowListElement.get(element);
+                    while (lowElementCount != 0) {
+                        String lowContent = topQueue.peek();
 
-
-
-                    lowElementCount--;
-                }
-                 topQueue.remove();
-
-
-
-
-            }else{
-                // need to append to result
-                element = topQueue.remove();
-                if(grammarMap.containsKey(element)){
-                    String grammar = grammarMap.get(element);
-                    if(grammar.contains("<") && grammar.contains(">")){
-
-                    }else{
-                        if(grammar.contains("|")){
-                            String[] splittedGrammar = grammar.split("\\|");
-                            String appender = Utilities.getRandomFromList(splittedGrammar);
-                            result.append(appender);
-
+                        if (element.equals("<expression>")) {
+                            String resultFromExpression = Generator.evaluateExpression(lowContent);
+                            result.append(" " + resultFromExpression);
                         }
+
+
+                        lowElementCount--;
                     }
+                    topQueue.remove();
 
-                }else{
-                    if(element.contains("<") && element.contains(">") && regexMap.containsKey(element)){
-                       result.append(" "+ Utilities.getRandomString(regexMap.get(element),0,5));
 
-                    }else if(element.contains("'")){
-                        result.append(" "+element.substring(1,element.length()-1));
+                } else {
+                    // need to append to result
+                    element = topQueue.remove();
+                    if (grammarMap.containsKey(element)) {
+                        String grammar = grammarMap.get(element);
+                        if (grammar.contains("<") && grammar.contains(">")) {
+
+                        } else {
+                            if (grammar.contains("|")) {
+                                String[] splittedGrammar = grammar.split("\\|");
+                                String appender = Utilities.getRandomFromList(splittedGrammar);
+                                result.append(appender);
+
+                            }
+                        }
+
+                    } else {
+                        if (element.contains("<") && element.contains(">") && regexMap.containsKey(element)) {
+                            result.append(" " + Utilities.getRandomString(regexMap.get(element), 0, 5));
+
+                        } else if (element.contains("'")) {
+                            result.append(" " + element.substring(1, element.length() - 1));
+                        }
                     }
                 }
             }
-        }
 
-        System.out.println("String after queue processing-"+result);
+            System.out.println("String after queue processing-" + result);
+            topLevelCount--;
+            result.delete(0,result.length());
+        }
 
     }
 
