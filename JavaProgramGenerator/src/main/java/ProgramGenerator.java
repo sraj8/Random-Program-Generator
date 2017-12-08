@@ -115,6 +115,8 @@ public class ProgramGenerator {
 
 
 
+
+
         while(topLevelCount!=0) {
 
             while (!topQueue.isEmpty()) {
@@ -149,6 +151,8 @@ public class ProgramGenerator {
                                 String appender = Utilities.getRandomFromList(splittedGrammar);
                                 result.append(appender);
 
+                            }else if(element.equals("<abstract_methid>")){
+                                result.append(" abstract method");
                             }
                         }
 
