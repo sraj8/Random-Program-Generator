@@ -1,0 +1,3 @@
+<var>=[a-z]+
+<class_name>=[A-Z]+[a-zA-Z]*
+<method_name>=[a-zA-Z]+

@@ -1,5 +1,7 @@
-<var>:=<expression>|<op>|<expression>
+<access_type> <var>:=<expression>|<op>|<expression>
 <op>:=+|-|*
 <expression>:=0|1|2|3|4|5|6|7|8|9
 <var>:=[a-z^]
-<class_name>:=[A-Z^]&{&}
+<class_name>:=<access_modifier> <class_name> '{' '}'
+<access_modifier>:=public|private
+<access_type>:=int|float

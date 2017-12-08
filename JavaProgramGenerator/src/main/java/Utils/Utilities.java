@@ -8,9 +8,12 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Utilities {
     /**
@@ -106,6 +109,23 @@ public class Utilities {
         configuration.setAccessModifiers(accessModifiers);
 
         return configuration;
+    }
+
+
+    public static String getOperator(List<String> operatorList) {
+        return operatorList.get(0).split(":=")[1].split("\\|")[1];
+    }
+
+
+    public static Scanner getScanner(String pathName) {
+        File file = new File(pathName);
+        Scanner fileScan = null;
+        try {
+            fileScan = new Scanner(file);
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        return fileScan;
     }
 
 
