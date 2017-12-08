@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 public class Utilities {
     /**
@@ -112,8 +114,11 @@ public class Utilities {
     }
 
 
-    public static String getOperator(List<String> operatorList) {
-        return operatorList.get(0).split(":=")[1].split("\\|")[1];
+    public static String getRandomFromList(String anyType[]) {
+        int randomNum = 0;
+        if (anyType.length > 0)
+            randomNum = ThreadLocalRandom.current().nextInt(0, anyType.length);
+        return anyType[randomNum].split(":=")[1].split("\\|")[1];
     }
 
 
