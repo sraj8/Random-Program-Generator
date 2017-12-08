@@ -25,7 +25,7 @@ public class Utilities {
      * @param max
      * @return String
      */
-    public String getRandomString(String regex, int min, int max){
+    public static String getRandomString(String regex, int min, int max){
         String randomString = "";
         Generex generex = new Generex(regex);
         if(min > 0 && max==0){
@@ -118,7 +118,7 @@ public class Utilities {
         int randomNum = 0;
         if (anyType.length > 0)
             randomNum = ThreadLocalRandom.current().nextInt(0, anyType.length);
-        return anyType[randomNum].split(":=")[1].split("\\|")[1];
+        return anyType[randomNum];
     }
 
 

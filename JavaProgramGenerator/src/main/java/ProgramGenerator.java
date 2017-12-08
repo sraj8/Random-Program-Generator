@@ -16,9 +16,11 @@ public class ProgramGenerator {
 
    // static List<String> nonTerminalList = new ArrayList<>();
 
-    static Stack<String> expressionGeneratorStack = new Stack<>() ;
+    static Stack<String> rightStack ;
 
-    static StringBuffer result = new StringBuffer();
+    static StringBuffer result ;
+
+    static Queue<String> leftQueue;
 
     static Map<String,String> regexMap;
 
@@ -26,6 +28,7 @@ public class ProgramGenerator {
 
     static List<String> topList;
     static  List<String> lowList;
+    static Map<String,Integer> lowListElement;
     static  Map<String,String> grammarMap;
     static  Queue<String> topQueue;
 
@@ -34,7 +37,7 @@ public class ProgramGenerator {
     public static void main(String[] args) {
         utilities = new Utilities();
 
-        initializeAllDataHolders();
+       // initializeAllDataHolders();
 
 
         //make list top-level mid-level and low-level
@@ -62,10 +65,93 @@ public class ProgramGenerator {
         System.out.println(result.toString());
     }
 
-    private static void initializeAllDataHolders() {
+    {
+
+        rightStack = new Stack<>();
+        result = new StringBuffer();
+        leftQueue =  new LinkedList<>();
+        regexMap = new HashMap<>();
+        utilities = new Utilities();
+        topList = new ArrayList<>();
+        lowList = new ArrayList<>();
+        grammarMap = new HashMap<>();
+        topQueue = new LinkedList<>();
+        lowListElement = new HashMap<>();
+
+
     }
 
-    private static void queueProcessing() {
+    public static void queueProcessing() {
+        /*
+            1. read top queue one element at a time
+                a. if not in lowlist then remove
+                b. else peek and iterate over it
+            2. check corresponding element in map
+                a. check if it has pipe - if yes split on pipe and generate random number
+                b. if not then has regex for it then generate random string name
+                c. if has '' then just append name directly
+            3. if lowlevel
+                a. check count
+                    if count less than set count then iterate - solve using left queue and right stack
+                    if count equals set count then remove and iterate using left queue and right stack
+
+            4. for left queue - check for element in map and solve
+            5. same for right queue
+         */
+
+
+
+        while(!topQueue.isEmpty()){
+            String element = topQueue.peek();
+            if(lowListElement.containsKey(element)){
+                // check count and iterate
+                int lowElementCount = lowListElement.get(element);
+                while(lowElementCount!=0){
+                    String lowContent = topQueue.peek();
+
+                    if(element.equals("<expression>")){
+                      String resultFromExpression = Generator.evaluateExpression(lowContent);
+                      result.append(" "+resultFromExpression);
+                    }
+
+
+
+                    lowElementCount--;
+                }
+                 topQueue.remove();
+
+
+
+
+            }else{
+                // need to append to result
+                element = topQueue.remove();
+                if(grammarMap.containsKey(element)){
+                    String grammar = grammarMap.get(element);
+                    if(grammar.contains("<") && grammar.contains(">")){
+
+                    }else{
+                        if(grammar.contains("|")){
+                            String[] splittedGrammar = grammar.split("\\|");
+                            String appender = Utilities.getRandomFromList(splittedGrammar);
+                            result.append(appender);
+
+                        }
+                    }
+
+                }else{
+                    if(element.contains("<") && element.contains(">") && regexMap.containsKey(element)){
+                       result.append(" "+ Utilities.getRandomString(regexMap.get(element),0,5));
+
+                    }else if(element.contains("'")){
+                        result.append(" "+element.substring(1,element.length()-1));
+                    }
+                }
+            }
+        }
+
+        System.out.println("String after queue processing-"+result);
+
     }
 
 

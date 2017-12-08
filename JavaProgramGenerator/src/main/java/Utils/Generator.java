@@ -21,4 +21,13 @@ public class Generator {
         String[] splitted = grammar.split("\\s+");
         return splitted;
     }
+
+
+    public static String evaluateExpression(String expression){
+        StringBuffer result = new StringBuffer();
+        //evaluate left hand and right hand side of expression
+
+        return result.toString();
+
+    }
 }
