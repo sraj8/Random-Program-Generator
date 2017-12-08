@@ -1,3 +1,5 @@
+import Utils.Generator;
+import Utils.ReadFiles;
 import Utils.Utilities;
 
 import java.io.File;
@@ -6,59 +8,69 @@ import java.util.*;
 
 public class ProgramGenerator {
 
-    static List<String> expressionList = new ArrayList<>();
+   // static List<String> expressionList = new ArrayList<>();
 
-    static  List<String> operatorList = new ArrayList<>();
+  //  static  List<String> operatorList = new ArrayList<>();
 
-    static List<String> terminalList = new ArrayList<>();
+  //  static List<String> terminalList = new ArrayList<>();
 
-    static List<String> nonTerminalList = new ArrayList<>();
+   // static List<String> nonTerminalList = new ArrayList<>();
 
     static Stack<String> expressionGeneratorStack = new Stack<>() ;
 
     static StringBuffer result = new StringBuffer();
 
-    static Map<String,String> regexMap = new HashMap<>();
+    static Map<String,String> regexMap;
 
     static Utilities utilities;
+
+    static List<String> topList;
+    static  List<String> lowList;
+    static  Map<String,String> grammarMap;
+    static  Queue<String> topQueue;
+
 
 
     public static void main(String[] args) {
         utilities = new Utilities();
 
+        initializeAllDataHolders();
+
+
         //make list top-level mid-level and low-level
-        readGrammarFile();
+        ReadFiles.readGrammarFile(topList,lowList,grammarMap);
 
         //no changes required here
-        readRegexFile();
+        ReadFiles.readRegexFile(regexMap);
+
+
+        Generator.generateTopLevelQueue(topList,topQueue);
+
+
+        queueProcessing();
 
         //start by class name
-        topGrammarSetUp();
+      //  topGrammarSetUp();
 
 
         //no changes required here
-        readTerminalNonTerminal();
+     //   readTerminalNonTerminal();
 
         //low-level contruct
-        generateExpression();
+     //   generateExpression();
 
         System.out.println(result.toString());
     }
 
-    private static void readRegexFile(){
-
-
-        Scanner fileScan = utilities.getScanner("src/main/resources/regex.txt");
-
-        while(fileScan.hasNext()){
-            String regex = fileScan.nextLine().toString();
-            String[] regexParts = regex.split("=");
-            regexMap.put(regexParts[0],regexParts[1]);
-        }
-
+    private static void initializeAllDataHolders() {
     }
 
-    private static void topGrammarSetUp() {
+    private static void queueProcessing() {
+    }
+
+
+
+   /* private static void topGrammarSetUp() {
         String initialExpression = expressionList.get(0);
 
         String initialExpressionBreak[] = (initialExpression.split(":="));
@@ -73,9 +85,9 @@ public class ProgramGenerator {
         expressionGeneratorStack.push(initialExpressionBreak[0].trim());
         expressionGeneratorStack.push(initialExpressionBreak[1].trim());
         expressionGeneratorStack.push(initialExpressionBreak[2].trim());
-    }
+    }*/
 
-    private static void insertCompleteExpression() {
+   /* private static void insertCompleteExpression() {
         String initialExpression = expressionList.get(0);
 
         String initialExpressionBreak[] = (initialExpression.split(":="));
@@ -83,12 +95,12 @@ public class ProgramGenerator {
         expressionGeneratorStack.push(initialExpressionBreak[0].trim());
         expressionGeneratorStack.push(initialExpressionBreak[1].trim());
         expressionGeneratorStack.push(initialExpressionBreak[2].trim());
-    }
+    }*/
 
 
 
 
-    public static  void generateExpression(){
+   /* public static  void generateExpression(){
 
         while(!expressionGeneratorStack.isEmpty()) {
 
@@ -134,12 +146,12 @@ public class ProgramGenerator {
 
         }
 
-    }
+    }*/
 
 
 
 
-    public static void readGrammarFile(){
+  /*  public static void readGrammarFile(){
 
         Scanner fileScan = utilities.getScanner("src/main/resources/grammar.txt");
 
@@ -154,11 +166,11 @@ public class ProgramGenerator {
 
 
         }
-    }
+    }*/
 
 
 
-    public static void readTerminalNonTerminal(){
+   /* public static void readTerminalNonTerminal(){
 
         Scanner fileScan = utilities.getScanner("src/main/resources/TerminalNonTerminal.txt");
 
@@ -181,5 +193,5 @@ public class ProgramGenerator {
         }
 
 
-    }
+    }*/
 }
