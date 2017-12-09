@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 import java.util.*;
 
-public class Generator_Test {
+public class GeneratorTest {
 
     @Test
     public void testgenerateTopLevelQueue(){
@@ -17,7 +17,7 @@ public class Generator_Test {
         generateTopLevelQueue(topList,testQueue);
         assertNotNull(testQueue);
         for(String val : testQueue)
-            System.out.println(val);
+            System.out.println(val  );
     }
 
     private List<String> addStaticGrammar(){
