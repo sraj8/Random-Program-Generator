@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ReadFiles {
 
-    public static void readGrammarFile(List<String> topList, List<String> lowList, Map<String,String> grammarMap){
+    public static void readGrammarFile(List<String> topList, List<String> lowList, Map<String,String> grammarMap, Map<String,Integer> lowListElement){
         Scanner fileScan = Utilities.getScanner("src/main/resources/grammar.txt");
         while(fileScan.hasNextLine()){
             String line = fileScan.nextLine();
@@ -16,6 +16,13 @@ public class ReadFiles {
                 topList.add(line.replace("<interface_name>:=",""));
             }
             else if(line.contains("<expression>:=")){
+                if(lowListElement.containsKey("<expression>:=")){
+                    int count = lowListElement.get("<expression>:=");
+                    count++;
+                    lowListElement.put("<expression>:=",count);
+                }else{
+                    lowListElement.put("<expression>:=",1);
+                }
                 lowList.add(line.replace("<expression>:=",""));
             } else {
              String[] exps = line.split(":=");
