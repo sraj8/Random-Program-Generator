@@ -25,7 +25,7 @@ public class Generator {
         return topList.get(randomNum);
     }
 
-    private static String[] getSplittedArray(String grammar) {
+    public static String[] getSplittedArray(String grammar) {
         String[] splitted = grammar.split("\\s+");
         return splitted;
     }
