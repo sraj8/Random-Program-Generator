@@ -56,6 +56,10 @@ public class Generator {
     private static void processRightStack(Stack<String> rightStack, StringBuffer result, Map<String,String> grammarMap, Map<String,String> regexMap) {
         while (!rightStack.isEmpty()){
             String stackElement = rightStack.pop();
+            if (stackElement.contains("|")) {
+                String[] splittedGrammar = stackElement.split("\\|");
+                stackElement = Utilities.getRandomFromList(splittedGrammar);
+            }
             if (grammarMap.containsKey(stackElement)) {
                 String grammar = grammarMap.get(stackElement);
                 if (grammar.contains("<") && grammar.contains(">")) {
@@ -63,11 +67,6 @@ public class Generator {
                     for (String splitted : splittedArray){
                         rightStack.push(splitted);
                     }
-                }
-                else if (grammar.contains("|")) {
-                    String[] splittedGrammar = grammar.split("\\|");
-                    String appender = Utilities.getRandomFromList(splittedGrammar);
-                    result.append(appender);
                 }
             } else {
                 if (stackElement.contains("<") && stackElement.contains(">") && regexMap.containsKey(stackElement)) {
