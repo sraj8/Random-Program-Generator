@@ -45,7 +45,12 @@ public class MethodGenerator {
 
                 methodDeclaration.append(" "+Generator.evaluateExpression(lowList.get(0),grammerMap,regexMap));
 
-            }else if(split[i].charAt(0)=='\''){
+            }else if(split[i].contains("<for_loop>")){
+
+                methodDeclaration.append(LoopGenerator.loopEvaluator(grammerMap.get("<for_loop>"),regexMap));
+
+            }
+            else if(split[i].charAt(0)=='\''){
                 methodDeclaration.append(split[i].replaceAll("'","")+" ");
             }
 
@@ -55,4 +60,5 @@ public class MethodGenerator {
         return methodDeclaration.toString();
 
     }
+
 }
