@@ -14,17 +14,19 @@ public class ReadFilesTest{
     List<String> topList;
     List<String> lowList;
     Map<String, String> grammarMap;
+    Map<String,Integer> lowListElement;
 
     @Before
     public void setUp(){
        topList = new ArrayList<>();
        lowList = new ArrayList<>();
        grammarMap = new HashMap<>();
+       lowListElement = new HashMap<>();
     }
 
     @Test
     public void readGrammarFileTest(){
-        ReadFiles.readGrammarFile(topList,lowList,grammarMap);
+        ReadFiles.readGrammarFile(topList,lowList,grammarMap,lowListElement);
         System.out.println("TOPLIST");
         for(String top: topList){
             System.out.println(top);
