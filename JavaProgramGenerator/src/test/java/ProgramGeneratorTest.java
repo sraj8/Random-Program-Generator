@@ -14,12 +14,9 @@ public class ProgramGeneratorTest {
     public void setUp() throws Exception {
         //topQueue grammarMap and lowList
         programGenerator = new ProgramGenerator();
-        ProgramGenerator.topQueue.add("<access_modifier>");
-        ProgramGenerator.topQueue.add("'class'");
-        ProgramGenerator.topQueue.add("<class_name>");
-        ProgramGenerator.topQueue.add("'{'");
-        ProgramGenerator.topQueue.add("<expression>");
-        ProgramGenerator.topQueue.add("'}'");
+        ProgramGenerator.initializeAllDataHolders();
+        ProgramGenerator.topList.add("<access_modifier> 'class' <class_name> '{' <expression> '}'");
+        ProgramGenerator.topList.add("<access_modifier> 'interface' <interface> '{' <abstract_method> '}'");
         ProgramGenerator.grammarMap.put("<access_modifier>","public|private");
         ProgramGenerator.lowList.add("<access_type> <var> = <exp> <op> <exp>");
         ProgramGenerator.lowListElement.put("<expression>",3);

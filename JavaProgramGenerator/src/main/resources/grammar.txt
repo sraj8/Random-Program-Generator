@@ -4,6 +4,6 @@
 <class_name>:=<access_modifier> 'class' <class_name> '{' <expression> '}'
 <interface_name>:=<access_modifier> 'interface' <interface> '{' <abstract_method> '}'
 <abstract_method>:=<access_return_type> <method_name> '(' ')' '{' '}'
-<access_return_type>:void|int|float
+<access_return_type>:=void|int|float
 <access_modifier>:=public|private
 <access_type>:=int|float

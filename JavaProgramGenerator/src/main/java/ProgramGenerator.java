@@ -33,7 +33,7 @@ public class ProgramGenerator {
     static  Queue<String> topQueue;
 
 
-   private static void initializeAllDataHolders() {
+   public static void initializeAllDataHolders() {
        //stack for processing right hand of expression
        rightStack = new Stack<>();
        //result after processing topqueue
@@ -53,6 +53,7 @@ public class ProgramGenerator {
        topQueue = new LinkedList<>();
        //count of lowlist elements in lowlist -e.g <expression>,3
        lowListElement = new HashMap<>();
+       lowListElement.put("<expression>",3);
 
     }
 
@@ -74,7 +75,7 @@ public class ProgramGenerator {
         ReadFiles.readRegexFile(regexMap);
 
 
-        Generator.generateTopLevelQueue(topList,topQueue);
+
 
 
         queueProcessing();
@@ -118,6 +119,7 @@ public class ProgramGenerator {
 
 
         while(topLevelCount!=0) {
+            Generator.generateTopLevelQueue(topList,topQueue);
 
             while (!topQueue.isEmpty()) {
                 String element = topQueue.peek();
@@ -128,8 +130,9 @@ public class ProgramGenerator {
                         String lowContent = topQueue.peek();
 
                         if (element.equals("<expression>")) {
-                            String resultFromExpression = Generator.evaluateExpression(lowContent);
+                            String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap);
                             result.append(" " + resultFromExpression);
+                            System.out.println("Result from expression-"+resultFromExpression);
                         }
 
 
