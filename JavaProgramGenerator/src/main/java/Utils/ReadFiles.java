@@ -18,7 +18,13 @@ public class ReadFiles {
             else if(line.contains("<expression>:=")){
                 lowListElement.put("<expression>",3);
                 lowList.add(line.replace("<expression>:=",""));
-            } else {
+            } else if(line.contains("<abstract_method>:=")){
+                lowListElement.put("<abstract_method>",3);
+                lowList.add(line.replace("<abstract_method>:=",""));
+            } else if(line.contains("<class_method>:=")){
+                lowListElement.put("<class_method>",3);
+                lowList.add(line.replace("<class_method>:=",""));
+            }else {
              String[] exps = line.split(":=");
                 grammarMap.put(exps[0],exps[1]);
             }

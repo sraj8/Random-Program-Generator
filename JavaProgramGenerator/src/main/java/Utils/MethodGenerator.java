@@ -1,5 +1,6 @@
 package Utils;
 
+import java.util.List;
 import java.util.Map;
 
 public class MethodGenerator {
@@ -27,7 +28,7 @@ public class MethodGenerator {
         return methodDefinition.toString();
     }
 
-    public static String generateMethodsforClass(String grammer, Map<String,String> grammerMap, Map<String,String> regexMap){
+    public static String generateMethodsforClass(String grammer, Map<String,String> grammerMap, Map<String,String> regexMap, List<String> lowList){
         StringBuilder methodDeclaration = new StringBuilder();
         String[] split = grammer.split(" ");
         for(int i=0;i<split.length;i++){
@@ -40,11 +41,16 @@ public class MethodGenerator {
                 String regex = regexMap.get(split[i]);
                 String name = Utilities.getRandomString(regex,3,8);
                 methodDeclaration.append(name+" ");
+            }else if(split[i].contains("<expression>")){
+
+                methodDeclaration.append(" "+Generator.evaluateExpression(lowList.get(0),grammerMap,regexMap));
+
             }else if(split[i].charAt(0)=='\''){
                 methodDeclaration.append(split[i].replaceAll("'","")+" ");
             }
 
         }
+        methodDeclaration.append("\n");
 
         return methodDeclaration.toString();
 

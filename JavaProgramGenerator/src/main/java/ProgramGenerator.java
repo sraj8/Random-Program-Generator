@@ -1,4 +1,5 @@
 import Utils.Generator;
+import Utils.MethodGenerator;
 import Utils.ReadFiles;
 import Utils.Utilities;
 
@@ -8,13 +9,7 @@ import java.util.*;
 
 public class ProgramGenerator {
 
-   // static List<String> expressionList = new ArrayList<>();
 
-  //  static  List<String> operatorList = new ArrayList<>();
-
-  //  static List<String> terminalList = new ArrayList<>();
-
-   // static List<String> nonTerminalList = new ArrayList<>();
 
     static Stack<String> rightStack ;
 
@@ -75,20 +70,8 @@ public class ProgramGenerator {
         ReadFiles.readRegexFile(regexMap);
 
 
-
-
-
         queueProcessing();
 
-        //start by class name
-      //  topGrammarSetUp();
-
-
-        //no changes required here
-     //   readTerminalNonTerminal();
-
-        //low-level contruct
-     //   generateExpression();
 
         System.out.println(result.toString());
     }
@@ -134,6 +117,10 @@ public class ProgramGenerator {
                              result.append(" " + resultFromExpression);
                           //  System.out.println("Result from expression-"+resultFromExpression);
                            // result.append(" <expression>");
+                        }else if(lowContent.equals("<abstract_method>")){
+                            result.append(" "+ MethodGenerator.generateMethodsforInterface(lowList.get(2),grammarMap,regexMap));
+                        }else if(lowContent.equals("<class_method>")){
+                            result.append(" "+ MethodGenerator.generateMethodsforClass(lowList.get(1),grammarMap,regexMap,lowList));
                         }
 
 
@@ -149,16 +136,18 @@ public class ProgramGenerator {
                         String grammar = grammarMap.get(element);
                         if (grammar.contains("<") && grammar.contains(">")) {
 
+
+
                         } else {
                             if (grammar.contains("|")) {
                                 String[] splittedGrammar = grammar.split("\\|");
                                 String appender = Utilities.getRandomFromList(splittedGrammar);
                                 result.append(appender);
 
-                            }else if(element.equals("<abstract_methid>")){
-                                result.append(" abstract method");
                             }
+
                         }
+
 
                     } else {
                         if (element.contains("<") && element.contains(">") && regexMap.containsKey(element)) {
