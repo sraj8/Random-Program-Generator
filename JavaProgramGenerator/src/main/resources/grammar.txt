@@ -2,6 +2,7 @@
 <op>:=+|-|*
 <exp>:=<exp> <op> <exp> | <digit>
 <class_name>:=<access_modifier> 'class' <class_name> '{' <expression> '}'
+<class_method>:='void' <method_name> '(' ')' '{' <expression> '}'
 <interface_name>:=<access_modifier> 'interface' <interface> '{' <abstract_method> '}'
 <abstract_method>:=<access_return_type> <method_name> '(' ')' ';'
 <access_return_type>:=void|int|float
