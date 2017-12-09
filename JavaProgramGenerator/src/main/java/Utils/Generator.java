@@ -60,18 +60,18 @@ public class Generator {
             if (grammarMap.containsKey(stackElement)) {
                 String grammar = grammarMap.get(stackElement);
                 if (grammar.contains("|")) {
-                    String[] splittedGrammar = grammar.split("\\|");
+                    String[] splittedGrammar = grammar.split(" \\| ");
                     stackElement = Utilities.getRandomFromList(splittedGrammar);
-                    String[] stackElements = stackElement.split(" ");
-                    for(String str: stackElements)
-                        rightStack.push(str);
 
                 }
-                 else if (stackElement.contains("<") && stackElement.contains(">")) {
+                if (stackElement.contains("<") && stackElement.contains(">")) {
                     String splittedArray[] = getSplittedArray(stackElement);
                     for (String splitted : splittedArray){
                         rightStack.push(splitted);
                     }
+                }
+                else {
+                    result.append(" " + stackElement);
                 }
             } else {
                 if (stackElement.contains("<") && stackElement.contains(">") && regexMap.containsKey(stackElement)) {
@@ -82,6 +82,8 @@ public class Generator {
                 }
             }
         }
+        result.append(";");
+        result.append(System.getProperty("line.separator"));
     }
 
     private static void processLeftQueue(Queue<String> leftQueue, StringBuffer result, Map<String,String> grammarMap, Map<String,String> regexMap) {
@@ -89,9 +91,9 @@ public class Generator {
             if (grammarMap.containsKey(lElement)) {
                 String grammar = grammarMap.get(lElement);
                 if (grammar.contains("|")) {
-                    String[] splittedGrammar = grammar.split("\\|");
+                    String[] splittedGrammar = grammar.split(" \\| ");
                     String appender = Utilities.getRandomFromList(splittedGrammar);
-                    result.append(appender);
+                    result.append(" " + appender);
                 }
             } else {
                 if (lElement.contains("<") && lElement.contains(">") && regexMap.containsKey(lElement)) {
@@ -102,5 +104,6 @@ public class Generator {
                 }
             }
         }
+        result.append(" = ");
     }
 }
