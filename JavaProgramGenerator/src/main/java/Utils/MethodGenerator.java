@@ -11,7 +11,7 @@ public class MethodGenerator {
             if(split[i].charAt(0) == '<'){
                 if(grammerMap.containsKey(split[i])){
                     String value = grammerMap.get(split[i]);
-                    String[] valueArray = value.split("|");
+                    String[] valueArray = value.split("[|]");
                     String modifier = Utilities.getRandomFromList(valueArray);
                     methodDefinition.append(modifier+" ");
                 }else if(regexMap.containsKey(split[i])){
