@@ -12,6 +12,8 @@ public class ReadFiles {
             String line = fileScan.nextLine();
             if(line.contains("<class_name>:=")){
                 topList.add(line.replace("<class_name>:=",""));
+            }else if(line.contains("<interface_name>:=")){
+                topList.add(line.replace("<interface_name>:=",""));
             }
             else if(line.contains("<expression>:=")){
                 lowList.add(line.replace("<expression>:=",""));
