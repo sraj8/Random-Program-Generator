@@ -129,11 +129,11 @@ public class ProgramGenerator {
                     while (lowElementCount != 0) {
                         String lowContent = topQueue.peek();
 
-                        if (element.equals("<expression>")) {
+                        if (lowContent.equals("<expression>")) {
                           //  String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap);
                            // result.append(" " + resultFromExpression);
                           //  System.out.println("Result from expression-"+resultFromExpression);
-                            System.out.println("<expression>");
+                            result.append(" <expression>");
                         }
 
 
