@@ -43,17 +43,17 @@ public class Generator {
         for (String lhString : lhs) {
             leftQueue.add(lhString);
         }
-        for (String rhString : lhs) {
+        for (String rhString : rhs) {
             rightStack.push(rhString);
         }
 
         processLeftQueue(leftQueue, result, grammarMap, regexMap);
-        processRightQueue(rightStack, result, grammarMap, regexMap);
+        processRightStack(rightStack, result, grammarMap, regexMap);
         return result.toString();
 
     }
 
-    private static void processRightQueue(Stack<String> rightStack, StringBuffer result, Map<String,String> grammarMap, Map<String,String> regexMap) {
+    private static void processRightStack(Stack<String> rightStack, StringBuffer result, Map<String,String> grammarMap, Map<String,String> regexMap) {
         while (!rightStack.isEmpty()){
             String stackElement = rightStack.pop();
             if (grammarMap.containsKey(stackElement)) {
@@ -69,17 +69,34 @@ public class Generator {
                     String appender = Utilities.getRandomFromList(splittedGrammar);
                     result.append(appender);
                 }
-            } /*else {
-                if (stackElement.contains("<") && stackElement.contains(">") && regexMap.containsKey(element)) {
-                    result.append(" " + Utilities.getRandomString(regexMap.get(element), 0, 5));
+            } else {
+                if (stackElement.contains("<") && stackElement.contains(">") && regexMap.containsKey(stackElement)) {
+                    result.append(" " + Utilities.getRandomString(regexMap.get(stackElement), 0, 3));
 
-                } else if (element.contains("'")) {
-                    result.append(" " + element.substring(1, element.length() - 1));
+                } else if (stackElement.contains("'")) {
+                    result.append(" " + stackElement.substring(1, stackElement.length() - 1));
                 }
-            }*/
+            }
         }
     }
 
     private static void processLeftQueue(Queue<String> leftQueue, StringBuffer result, Map<String,String> grammarMap, Map<String,String> regexMap) {
+        for (String lElement : leftQueue){
+            if (grammarMap.containsKey(lElement)) {
+                String grammar = grammarMap.get(lElement);
+                if (grammar.contains("|")) {
+                    String[] splittedGrammar = grammar.split("\\|");
+                    String appender = Utilities.getRandomFromList(splittedGrammar);
+                    result.append(appender);
+                }
+            } else {
+                if (lElement.contains("<") && lElement.contains(">") && regexMap.containsKey(lElement)) {
+                    result.append(" " + Utilities.getRandomString(regexMap.get(lElement), 0, 5));
+
+                } else if (lElement.contains("'")) {
+                    result.append(" " + lElement.substring(1, lElement.length() - 1));
+                }
+            }
+        }
     }
 }
