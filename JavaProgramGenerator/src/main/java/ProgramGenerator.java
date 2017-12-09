@@ -130,10 +130,10 @@ public class ProgramGenerator {
                         String lowContent = topQueue.peek();
 
                         if (lowContent.equals("<expression>")) {
-                          //  String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap);
-                           // result.append(" " + resultFromExpression);
+                             String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap);
+                             result.append(" " + resultFromExpression);
                           //  System.out.println("Result from expression-"+resultFromExpression);
-                            result.append(" <expression>");
+                           // result.append(" <expression>");
                         }
 
 
