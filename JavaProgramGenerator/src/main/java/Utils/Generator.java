@@ -5,6 +5,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Generator {
 
+    static int limitrecur;
+    private static String non_recursive = "digit";
 
     public static void generateTopLevelQueue(List<String> topList, Queue<String> topQueue){
         //populate top queue from top list
@@ -31,12 +33,14 @@ public class Generator {
     }
 
 
-    public static String evaluateExpression(String expression, Map<String,String> grammarMap, Map<String,String> regexMap){
+    public static String evaluateExpression(String expression, Map<String,String> grammarMap, Map<String,String> regexMap, int expLimit){
         StringBuffer result = new StringBuffer();
+        limitrecur = 0;
         //evaluate left hand and right hand side of expression
         Queue<String> leftQueue = new LinkedList<>();
         Stack<String> rightStack = new Stack<>();
         String[] splittedExpression= expression.split(" = ");
+        limitrecur++;
         String lhs[] = splittedExpression[0].split("\\s+");
         String rhs[] = splittedExpression[1].split("\\s+");
 
@@ -48,12 +52,12 @@ public class Generator {
         }
 
         processLeftQueue(leftQueue, result, grammarMap, regexMap);
-        processRightStack(rightStack, result, grammarMap, regexMap);
+        processRightStack(rightStack, result, grammarMap, regexMap, expLimit);
         return result.toString();
 
     }
 
-    private static void processRightStack(Stack<String> rightStack, StringBuffer result, Map<String,String> grammarMap, Map<String,String> regexMap) {
+    private static void processRightStack(Stack<String> rightStack, StringBuffer result, Map<String,String> grammarMap, Map<String,String> regexMap, int expLimit) {
         while (!rightStack.isEmpty()){
             String stackElement = rightStack.pop();
 
@@ -61,7 +65,10 @@ public class Generator {
                 String grammar = grammarMap.get(stackElement);
                 if (grammar.contains("|")) {
                     String[] splittedGrammar = grammar.split(" \\| ");
-                    stackElement = Utilities.getRandomFromList(splittedGrammar);
+                    if(limitrecur < expLimit)
+                        stackElement = Utilities.getRandomFromList(splittedGrammar);
+                    else
+                        stackElement = splittedGrammar[1];
 
                 }
                 if (stackElement.contains("<") && stackElement.contains(">")) {
@@ -69,6 +76,8 @@ public class Generator {
                     for (String splitted : splittedArray){
                         rightStack.push(splitted);
                     }
+                    if (!stackElement.contains(non_recursive))
+                        limitrecur++;
                 }
                 else {
                     result.append(" " + stackElement);
