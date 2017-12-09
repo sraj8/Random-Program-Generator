@@ -16,13 +16,7 @@ public class ReadFiles {
                 topList.add(line.replace("<interface_name>:=",""));
             }
             else if(line.contains("<expression>:=")){
-                if(lowListElement.containsKey("<expression>:=")){
-                    int count = lowListElement.get("<expression>:=");
-                    count++;
-                    lowListElement.put("<expression>:=",count);
-                }else{
-                    lowListElement.put("<expression>:=",1);
-                }
+                lowListElement.put("<expression>",3);
                 lowList.add(line.replace("<expression>:=",""));
             } else {
              String[] exps = line.split(":=");

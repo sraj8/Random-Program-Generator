@@ -53,7 +53,7 @@ public class ProgramGenerator {
        topQueue = new LinkedList<>();
        //count of lowlist elements in lowlist -e.g <expression>,3
        lowListElement = new HashMap<>();
-       lowListElement.put("<expression>",3);
+    //   lowListElement.put("<expression>",3);
 
     }
 
@@ -69,7 +69,7 @@ public class ProgramGenerator {
 
 
         //make list top-level mid-level and low-level
-        ReadFiles.readGrammarFile(topList,lowList,grammarMap);
+        ReadFiles.readGrammarFile(topList,lowList,grammarMap,lowListElement);
 
         //no changes required here
         ReadFiles.readRegexFile(regexMap);
@@ -129,10 +129,11 @@ public class ProgramGenerator {
                     while (lowElementCount != 0) {
                         String lowContent = topQueue.peek();
 
-                        if (element.equals("<expression>")) {
-                            String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap);
-                            result.append(" " + resultFromExpression);
-                            System.out.println("Result from expression-"+resultFromExpression);
+                        if (lowContent.equals("<expression>")) {
+                          //  String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap);
+                           // result.append(" " + resultFromExpression);
+                          //  System.out.println("Result from expression-"+resultFromExpression);
+                            result.append(" <expression>");
                         }
 
 
