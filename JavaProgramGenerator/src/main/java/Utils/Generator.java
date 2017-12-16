@@ -8,13 +8,21 @@ public class Generator {
     static int limitrecur;
     private static String non_recursive = "digit";
 
-    public static void generateTopLevelQueue(List<String> topList, Queue<String> topQueue){
+    public static void generateTopLevelQueue(List<String> topList, Queue<String> topQueue,int classCount,int interfaceCount){
         //populate top queue from top list
         //class and
         //random 0 -
         String grammar = "";
-        if(topList.size() > 0)
-            grammar = getRandomTopElement(topList);
+        if(topList.size() > 0) {
+            if(classCount>=1 && interfaceCount>=1)
+                grammar = getRandomTopElement(topList);
+            else{
+                if(classCount<=0)
+                    grammar = topList.get(1);
+                if (interfaceCount<=0)
+                    grammar = topList.get(0);
+            }
+        }
         String splittedArray[]= {};
         splittedArray = getSplittedArray(grammar);
         for (String splitted : splittedArray) {

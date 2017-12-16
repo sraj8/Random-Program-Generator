@@ -4,6 +4,8 @@ import Utils.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class ProgramGenerator {
 
@@ -25,6 +27,7 @@ public class ProgramGenerator {
     static Map<String,Integer> lowListElement;
     static  Map<String,String> grammarMap;
     static  Queue<String> topQueue;
+    static ArrayList<String> resultList;
 
 
    public static void initializeAllDataHolders() {
@@ -47,7 +50,8 @@ public class ProgramGenerator {
        topQueue = new LinkedList<>();
        //count of lowlist elements in lowlist -e.g <expression>,3
        lowListElement = new HashMap<>();
-    //   lowListElement.put("<expression>",3);
+        //final result list
+       resultList = new ArrayList<>();
 
     }
 
@@ -57,10 +61,6 @@ public class ProgramGenerator {
         utilities = new Utilities();
 
         initializeAllDataHolders();
-
-
-
-
 
         //make list top-level mid-level and low-level
         ReadFiles.readGrammarFile(topList,lowList,grammarMap,lowListElement);
@@ -94,17 +94,20 @@ public class ProgramGenerator {
             4. for left queue - check for element in map and solve
             5. same for right queue
          */
-        int topLevelCount = 3;
+        int classCount = 3;
+        int interfaceCount=3;
+        int inheritenceCount = 1;
 
 
-
-
-
-        while(topLevelCount!=0) {
-            Generator.generateTopLevelQueue(topList,topQueue);
+        while(classCount!=0 || interfaceCount!=0) {
+            Generator.generateTopLevelQueue(topList,topQueue,classCount,interfaceCount);
 
             while (!topQueue.isEmpty()) {
                 String element = topQueue.peek();
+                if(element.contains("'interface'") && !element.contains("<"))
+                    interfaceCount--;
+                if(element.contains("'class'") && !element.contains("<"))
+                    classCount--;
                 if (lowListElement.containsKey(element)) {
                     // check count and iterate
                     int lowElementCount = lowListElement.get(element);
@@ -117,7 +120,10 @@ public class ProgramGenerator {
                           //  System.out.println("Result from expression-"+resultFromExpression);
                            // result.append(" <expression>");
                         }else if(lowContent.equals("<abstract_method>")){
-                            result.append(" "+ MethodGenerator.generateMethodsforInterface(lowList.get(2),grammarMap,regexMap));
+                            String abstractMethod =  MethodGenerator.generateMethodsforInterface(lowList.get(2),grammarMap,regexMap);
+
+                            HierarchyMapper.setHierarchyDetails(className, abstractMethod);
+                            result.append(" "+ abstractMethod);
                         }else if(lowContent.equals("<class_method>")){
                             String classMethod = MethodGenerator.generateMethodsforClass(lowList.get(1),grammarMap,regexMap,lowList, className);
                             result.append(" "+ classMethod);
@@ -162,137 +168,22 @@ public class ProgramGenerator {
                 }
             }
 
+            resultList.add(result.toString());
+
             System.out.println("String after queue processing-" + result);
-            topLevelCount--;
             result.delete(0,result.length());
+
         }
+
+       for(String className : ClassMethodDao.getClassMethod().keySet()){
+
+            for (String methods : ClassMethodDao.getClassMethod().get(className)){
+                System.out.println("Class Name-"+className +"-Method-"+methods);
+            }
+
+       }
+
 
     }
 
-
-
-   /* private static void topGrammarSetUp() {
-        String initialExpression = expressionList.get(0);
-
-        String initialExpressionBreak[] = (initialExpression.split(":="));
-
-        if(initialExpressionBreak[0].equals("<var>")){
-            result.append(utilities.getRandomString(regexMap.get(initialExpressionBreak[0]),2,5));
-        }
-        result.append("=");
-
-
-        initialExpressionBreak = initialExpressionBreak[1].split("\\|");
-        expressionGeneratorStack.push(initialExpressionBreak[0].trim());
-        expressionGeneratorStack.push(initialExpressionBreak[1].trim());
-        expressionGeneratorStack.push(initialExpressionBreak[2].trim());
-    }*/
-
-   /* private static void insertCompleteExpression() {
-        String initialExpression = expressionList.get(0);
-
-        String initialExpressionBreak[] = (initialExpression.split(":="));
-        initialExpressionBreak = initialExpressionBreak[1].split("\\|");
-        expressionGeneratorStack.push(initialExpressionBreak[0].trim());
-        expressionGeneratorStack.push(initialExpressionBreak[1].trim());
-        expressionGeneratorStack.push(initialExpressionBreak[2].trim());
-    }*/
-
-
-
-
-   /* public static  void generateExpression(){
-
-        while(!expressionGeneratorStack.isEmpty()) {
-
-            String currentTopExpression = expressionGeneratorStack.pop();
-
-
-            if(terminalList.contains(currentTopExpression)){
-                if (currentTopExpression.trim().equals("<op>")) {
-                    String operator = utilities.getOperator(operatorList);
-
-                    //this number should also be generated randomly
-                    result.append(operator);
-
-                }
-
-            }else{
-                //recursive call will happen here - need to fix this
-                if (currentTopExpression.trim().equals("<expression>")) {
-
-                    int randomExpressionNumber = utilities.random_number(0,expressionList.size()-1);
-
-                    if(randomExpressionNumber == 0){
-                        //inserts expression <var> := <expression> <op> <expression> recursively
-                        insertCompleteExpression();
-
-                    }else if (randomExpressionNumber == 1){
-                        //terminal - adds digits
-                        String digits[] = expressionList.get(1).split(":=")[1].split("\\|");
-
-                        //this number should be generated randomly
-                        result.append(digits[2]);
-
-                    }
-
-
-
-                }
-
-            }
-
-
-
-
-        }
-
-    }*/
-
-
-
-
-  /*  public static void readGrammarFile(){
-
-        Scanner fileScan = utilities.getScanner("src/main/resources/grammar.txt");
-
-        while(fileScan.hasNext()){
-            String grammar = fileScan.nextLine().toString();
-
-            if(grammar.contains("<expression>")){
-                expressionList.add(grammar);
-            }else if(grammar.contains("<op>")){
-                operatorList.add(grammar);
-            }
-
-
-        }
-    }*/
-
-
-
-   /* public static void readTerminalNonTerminal(){
-
-        Scanner fileScan = utilities.getScanner("src/main/resources/TerminalNonTerminal.txt");
-
-        while(fileScan.hasNext()){
-            String terminalNonTerminal = fileScan.nextLine().toString();
-
-            if(terminalNonTerminal.contains("terminal")){
-                String terminals[] = terminalNonTerminal.split(":=")[1].split("\\|");
-                for(String terminal : terminals){
-                    terminalList.add(terminal);
-                }
-            }else if(terminalNonTerminal.contains("non-ter")){
-                String nonTerminals[] = terminalNonTerminal.split(":=")[1].split("\\|");
-                for(String nonTerminal : nonTerminals){
-                    nonTerminalList.add(nonTerminal);
-                }
-            }
-
-
-        }
-
-
-    }*/
 }

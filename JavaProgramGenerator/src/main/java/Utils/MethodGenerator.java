@@ -40,7 +40,6 @@ public class MethodGenerator {
             }else if(split[i].contains("method_name")){
                 String regex = regexMap.get(split[i]);
                 String name = Utilities.getRandomString(regex,3,8);
-                HierarchyMapper.setHierarchyDetails(className, name);
                 methodDeclaration.append(name+" ");
             }else if(split[i].contains("<expression>")){
 
