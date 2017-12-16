@@ -6,18 +6,18 @@ import static Utils.Generator.getSplittedArray;
 
 public class LoopGenerator {
 
-    public static String loopEvaluator(List<String> lowList, String loopExpression, Map<String,String> grammarMap, Map<String,String> regexMap){
+    public static String loopEvaluator(List<String> lowList, String loopExpression, Map<String,String> grammarMap, Map<String,String> regexMap, Configuration config){
         StringBuffer result =new StringBuffer();
         Queue<String> loopQueue = new LinkedList<>();
         String splittedExp[] = getSplittedArray(loopExpression);
         for (String splitted : splittedExp){
             loopQueue.add(splitted);
         }
-        evaluateLoopExpression(lowList,loopQueue, result, grammarMap, regexMap);
+        evaluateLoopExpression(lowList,loopQueue, result, grammarMap, regexMap, config);
         return result.toString();
     }
 
-    private static void evaluateLoopExpression(List<String> lowList, Queue<String> loopQueue, StringBuffer result, Map<String,String> grammarMap, Map<String,String> regexMap) {
+    private static void evaluateLoopExpression(List<String> lowList, Queue<String> loopQueue, StringBuffer result, Map<String,String> grammarMap, Map<String,String> regexMap, Configuration config) {
         String var = "";
         String prev = "";
         for (String loopq : loopQueue) {
@@ -36,7 +36,7 @@ public class LoopGenerator {
                 result.append(prev);
             }
             else if (loopq.contains("expression")) {
-                    String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap, 10);
+                    String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap, config.getMaxVariableNameLength());
                     result.append(" " + resultFromExpression);
             }
         }
