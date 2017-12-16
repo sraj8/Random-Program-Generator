@@ -1,3 +1,0 @@
-terminal:=<op>|<var>|=
-
-non-ter:=<expression>

@@ -1,1 +1,0 @@
- public interface JNE {  int  rKQ();  float bDncx();  float SJWT();  float xAugp();  float sJPak(); }

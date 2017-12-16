@@ -1,1 +1,0 @@
- public interface C { void  ccm(); void  JKyHg();  int  sNRAp(); void  kxKM();  int  dYIiC(); }

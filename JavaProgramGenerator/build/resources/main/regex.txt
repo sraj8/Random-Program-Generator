@@ -1,5 +1,0 @@
-<var>=[a-z]+
-<class_name>=[A-Z]+[a-zA-Z]*
-<interface_name>=[A-Z]+[a-zA-Z]*
-<method_name>=[a-zA-Z]+
-<digit>=[0-9]

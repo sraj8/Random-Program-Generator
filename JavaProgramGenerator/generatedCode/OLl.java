@@ -1,1 +1,0 @@
- public interface OLl {  int  YTcc(); void  duX(); void  dyGJv(); void  TbfY();  float yQG(); }
