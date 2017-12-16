@@ -1,3 +1,4 @@
+import Utils.Utilities;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,6 +24,6 @@ public class ProgramGeneratorTest {
     @Test
     public void queueProcessingTest() throws Exception {
 
-        ProgramGenerator.queueProcessing(config);
+        ProgramGenerator.queueProcessing(Utilities.parseConfigFile("resources\\config.xml"));
     }
 }

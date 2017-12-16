@@ -14,7 +14,7 @@ public class GeneratorTest {
         List<String>  topList;
         topList = addStaticGrammar();
         Queue<String> testQueue = new LinkedList<>();
-        generateTopLevelQueue(topList,testQueue);
+        generateTopLevelQueue(topList,testQueue, 5, 4);
         assertNotNull(testQueue);
         for(String val : testQueue)
             System.out.println(val  );

@@ -22,13 +22,13 @@ public class MethodGeneratorTest {
         regexMap.put("<method_name>","[a-zA-Z]+");
     }
 
-    @Test
+ /*   @Test
     public void testGenerateMethodsForInterface(){
         String output = MethodGenerator.generateMethodsforInterface(grammer,grammarMap,regexMap);
         System.out.println(output);
     }
 
-    /*@Test
+    @Test
     public void testGenerateMethodsForClass(){
         String output = MethodGenerator.generateMethodsforClass(classMethod,grammarMap,regexMap,);
         System.out.println(output);

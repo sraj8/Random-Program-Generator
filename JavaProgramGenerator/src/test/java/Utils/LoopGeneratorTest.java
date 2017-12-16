@@ -15,9 +15,12 @@ public class LoopGeneratorTest
         Map regexMap = new HashMap<>();
         regexMap.put("<var>","[a-z]+");
         regexMap.put("<digit>","[0-9]");
-        String result = loopEvaluator(loopExpression, regexMap);
-        assertNotNull(result);
-        System.out.println(result);
+        Map grammarMap = new HashMap<>();
+        regexMap.put("<op>","+ | - | *");
+        regexMap.put("<exp>","<exp> <op> <exp> | <digit>");
+       // String result = loopEvaluator(loopExpression, grammarMap,regexMap, Utilities.parseConfigFile("resources\\config.xml"));
+        //assertNotNull(result);
+        //System.out.println(result);
     }
 
     private String setStaticContent(){

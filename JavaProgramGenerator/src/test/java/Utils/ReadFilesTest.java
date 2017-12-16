@@ -26,7 +26,7 @@ public class ReadFilesTest{
 
     @Test
     public void readGrammarFileTest(){
-        ReadFiles.readGrammarFile(topList,lowList,grammarMap,lowListElement);
+        ReadFiles.readGrammarFile(topList,lowList,grammarMap,lowListElement, new ArrayList<>(),Utilities.parseConfigFile("resources\\config.xml"));
         System.out.println("TOPLIST");
         for(String top: topList){
             System.out.println(top);
