@@ -28,6 +28,7 @@ public class ProgramGenerator {
     static  Map<String,String> grammarMap;
     static  Queue<String> topQueue;
     static ArrayList<String> resultList;
+    static List<String> inheritenceLevel;
 
 
    public static void initializeAllDataHolders() {
@@ -53,6 +54,8 @@ public class ProgramGenerator {
         //final result list
        resultList = new ArrayList<>();
 
+       inheritenceLevel = new ArrayList<>();
+
     }
 
 
@@ -63,7 +66,7 @@ public class ProgramGenerator {
         initializeAllDataHolders();
 
         //make list top-level mid-level and low-level
-        ReadFiles.readGrammarFile(topList,lowList,grammarMap,lowListElement);
+        ReadFiles.readGrammarFile(topList,lowList,grammarMap,lowListElement,inheritenceLevel);
 
         //no changes required here
         ReadFiles.readRegexFile(regexMap);
@@ -72,9 +75,26 @@ public class ProgramGenerator {
         queueProcessing();
 
 
+
         System.out.println(result.toString());
     }
 
+    private static void queueProcessingForInheritence() {
+        int inheritenceCount = 1;
+
+
+        while(inheritenceCount!=0){
+            Generator.populateQueue(topQueue,inheritenceLevel.get(0));
+
+            while(!topQueue.isEmpty()){
+
+            }
+
+
+        }
+
+
+    }
 
 
     public static void queueProcessing() {
@@ -96,17 +116,24 @@ public class ProgramGenerator {
          */
         int classCount = 3;
         int interfaceCount=3;
-        int inheritenceCount = 1;
+        int inheritenceCount=1;
+        String interfaceName = null;
 
 
-        while(classCount!=0 || interfaceCount!=0) {
-            Generator.generateTopLevelQueue(topList,topQueue,classCount,interfaceCount);
+
+        while( inheritenceCount!=0 || classCount!=0 || interfaceCount!=0)  {
+            if(classCount>0 || interfaceCount>0) {
+                Generator.generateTopLevelQueue(topList, topQueue, classCount, interfaceCount);
+            }else{
+                Generator.populateQueue(topQueue,inheritenceLevel.get(0));
+                inheritenceCount--;
+            }
 
             while (!topQueue.isEmpty()) {
                 String element = topQueue.peek();
-                if(element.contains("'interface'") && !element.contains("<"))
+                if(element.contains("'interface'") && !element.contains("<") && !element.contains("implements") && !topQueue.contains("implements"))
                     interfaceCount--;
-                if(element.contains("'class'") && !element.contains("<"))
+                if(element.contains("'class'") && !element.contains("<") && !element.contains("implements") && !topQueue.contains("'implements'"))
                     classCount--;
                 if (lowListElement.containsKey(element)) {
                     // check count and iterate
@@ -138,6 +165,31 @@ public class ProgramGenerator {
                 } else {
                     // need to append to result
                     element = topQueue.remove();
+
+                    if(element.equals("<previous_interface_name>")){
+                        //select from previous interface
+                        interfaceName = getInterfaceName();
+                        result.append(" "+interfaceName);
+
+                    }
+                    if(element.equals("<interface_methods>")){
+                        //implement interface methods here
+                        if(interfaceName!=null){
+                            List<String> interfaceMethods = getInterfaceMethods(interfaceName);
+
+                            for(String interfaceMethod: interfaceMethods){
+                                String methodDef = interfaceMethod.substring(0,interfaceMethod.indexOf(";"));
+                                result.append(" "+methodDef+"\n"+"{");
+                                result.append(" "+ Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap, 10));
+                                if(methodDef.contains("int") || methodDef.contains("float")){
+                                    result.append("return 1;"+"\n");
+
+                                }
+                                result.append("}");
+                            }
+                        }
+                    }
+
                     if (grammarMap.containsKey(element)) {
                         String grammar = grammarMap.get(element);
                         if (grammar.contains("<") && grammar.contains(">")) {
@@ -175,15 +227,26 @@ public class ProgramGenerator {
 
         }
 
-       for(String className : ClassMethodDao.getClassMethod().keySet()){
-
-            for (String methods : ClassMethodDao.getClassMethod().get(className)){
-                System.out.println("Class Name-"+className +"-Method-"+methods);
-            }
-
-       }
+        getInterfaceName();
 
 
+    }
+
+    private static String getInterfaceName() {
+        for(String className : ClassMethodDao.getClassMethod().keySet()){
+             System.out.println("Class Name-" +className);
+
+             for (String methods : ClassMethodDao.getClassMethod().get(className)){
+                 return className;
+             }
+
+        }
+        return "";
+    }
+
+    private static List<String> getInterfaceMethods(String interfaceName) {
+       List<String> interfaceMethods = ClassMethodDao.getClassMethod().get(interfaceName);
+        return interfaceMethods;
     }
 
 }
