@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Utils.ReadFilesTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2017-12-16T23:21:43" hostname="Nomans-MacBook-Pro.local" time="0.037">
+  <properties/>
+  <testcase name="readGrammarFileTest" classname="Utils.ReadFilesTest" time="0.037"/>
+  <system-out><![CDATA[TOPLIST
+<access_modifier> 'class' <class_name> '{' <expression> <class_method> '}'
+'public' 'interface' <interface_name> '{' <abstract_method> '}'
+LOWLIST
+<access_type> <var> = <exp> <op> <exp>
+<access_modifier> 'void' <method_name> '(' ')' '{' <for_loop> <expression> '}'
+<access_return_type> <method_name> '(' ')' ';'
+Lefthandside: <exp>   Righthandside: <exp> <op> <exp> | <digit>
+Lefthandside: <access_return_type>   Righthandside: void | int | float
+Lefthandside: <access_modifier>   Righthandside: public | public
+Lefthandside: <op>   Righthandside: + | - | *
+Lefthandside: <access_type>   Righthandside: int | float
+Lefthandside: <for_loop>   Righthandside: 'for' '(' 'int' <var> ' '=' '0' ';' <var_prev> '<=' <digit> ';' <var_prev> '++' ')' '{' <expression> '}'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

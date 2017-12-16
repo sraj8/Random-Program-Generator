@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Utils.GeneratorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2017-12-16T23:21:43" hostname="Nomans-MacBook-Pro.local" time="0.002">
+  <properties/>
+  <testcase name="testgenerateTopLevelQueue" classname="Utils.GeneratorTest" time="0.002"/>
+  <system-out><![CDATA[<access_modifier>
+'class'
+<class_name>
+'{'
+<expression>
+'}'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,20 @@
+TOPLIST
+K<access_modifier> 'class' <class_name> '{' <expression> <class_method> '}'
+@'public' 'interface' <interface_name> '{' <abstract_method> '}'
+LOWLIST
+'<access_type> <var> = <exp> <op> <exp>
+O<access_modifier> 'void' <method_name> '(' ')' '{' <for_loop> <expression> '}'
+/<access_return_type> <method_name> '(' ')' ';'
+@Lefthandside: <exp>   Righthandside: <exp> <op> <exp> | <digit>
+GLefthandside: <access_return_type>   Righthandside: void | int | float
+ALefthandside: <access_modifier>   Righthandside: public | public
+.Lefthandside: <op>   Righthandside: + | - | *
+9Lefthandside: <access_type>   Righthandside: int | float
+“Lefthandside: <for_loop>   Righthandside: 'for' '(' 'int' <var> ' '=' '0' ';' <var_prev> '<=' <digit> ';' <var_prev> '++' ')' '{' <expression> '}'
+<access_modifier>
+'class'
+<class_name>
+'{'
+<expression>
+'}'
+Utils.Configuration@4e55c1a9
