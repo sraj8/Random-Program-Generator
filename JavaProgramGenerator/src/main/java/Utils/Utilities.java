@@ -43,7 +43,7 @@ public class Utilities {
      * @param path
      * @return Configuration object
      */
-    public Configuration parseConfigFile(String path){
+    public static Configuration parseConfigFile(String path){
         Configuration configuration = Configuration.getInstance();
 
         List<String> allowedTypes = new ArrayList<>();
@@ -56,7 +56,7 @@ public class Utilities {
 
                 boolean bmaxLinesOfCode = false, bmaxClasses = false, bmaxMethodCalls = false, bmaxMethodsInClass = false, bmaxInterfaces = false;
                 boolean bmaxMethodsInInterface = false, bmaxInterfacesToImplement = false, bmaxIntValue = false, bmaxStringLength = false;
-                boolean bmaxVariableNameLength = false, bTypes = false, bModifier = false;
+                boolean bmaxVariableNameLength = false, bTypes = false, bModifier = false, bmaxRecurssionLevel = false;
 
                 @Override
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -72,6 +72,7 @@ public class Utilities {
                     if(qName.equalsIgnoreCase("maxVariableNameLength")){bmaxVariableNameLength = true;}
                     if(qName.equalsIgnoreCase("type")){bTypes = true;}
                     if(qName.equalsIgnoreCase("modifier")){bModifier = true;}
+                    if(qName.equalsIgnoreCase("maxRecurssionLevel")){bmaxRecurssionLevel = true;}
                 }
 
                 @Override
@@ -81,18 +82,19 @@ public class Utilities {
 
                 @Override
                 public void characters(char[] ch, int start, int length) throws SAXException {
-                    if(bmaxLinesOfCode){ configuration.setMaxLinesOfCode(Integer.valueOf(new String(ch,start,length)));}
-                    if(bmaxClasses){configuration.setMaxClasses(Integer.valueOf(new String(ch,start,length)));}
-                    if(bmaxMethodCalls){configuration.setMaxMethodCalls(Integer.valueOf(new String(ch,start,length)));}
-                    if(bmaxMethodsInClass){configuration.setMaxMethodsInClass(Integer.valueOf(new String(ch,start,length)));}
-                    if(bmaxInterfaces){configuration.setMaxInterfaces(Integer.valueOf(new String(ch,start,length)));}
-                    if(bmaxMethodsInInterface){configuration.setMaxMethodsInInterface(Integer.valueOf(new String(ch,start,length)));}
-                    if(bmaxInterfacesToImplement){configuration.setMaxInterfacesToImplement(Integer.valueOf(new String(ch,start,length)));}
-                    if(bmaxIntValue){configuration.setMaxIntValue(Integer.valueOf(new String(ch,start,length)));}
-                    if(bmaxStringLength){configuration.setMaxStringLength(Integer.valueOf(new String(ch,start,length)));}
-                    if(bmaxVariableNameLength){configuration.setMaxVariableNameLength(Integer.valueOf(new String(ch,start,length)));}
-                    if(bTypes){allowedTypes.add(new String(ch,start,length));}
-                    if(bModifier){accessModifiers.add(new String(ch,start,length));}
+                    if(bmaxLinesOfCode){ configuration.setMaxLinesOfCode(Integer.valueOf(new String(ch,start,length))); bmaxLinesOfCode=false;}
+                    if(bmaxClasses){configuration.setMaxClasses(Integer.valueOf(new String(ch,start,length))); bmaxClasses=false;}
+                    if(bmaxMethodCalls){configuration.setMaxMethodCalls(Integer.valueOf(new String(ch,start,length))); bmaxMethodCalls=false;}
+                    if(bmaxMethodsInClass){configuration.setMaxMethodsInClass(Integer.valueOf(new String(ch,start,length))); bmaxMethodsInClass=false;}
+                    if(bmaxInterfaces){configuration.setMaxInterfaces(Integer.valueOf(new String(ch,start,length))); bmaxInterfaces=false;}
+                    if(bmaxMethodsInInterface){configuration.setMaxMethodsInInterface(Integer.valueOf(new String(ch,start,length))); bmaxMethodsInInterface=false;}
+                    if(bmaxInterfacesToImplement){configuration.setMaxInterfacesToImplement(Integer.valueOf(new String(ch,start,length))); bmaxInterfacesToImplement=false;}
+                    if(bmaxIntValue){configuration.setMaxIntValue(Integer.valueOf(new String(ch,start,length))); bmaxIntValue=false;}
+                    if(bmaxStringLength){configuration.setMaxStringLength(Integer.valueOf(new String(ch,start,length))); bmaxStringLength=false;}
+                    if(bmaxVariableNameLength){configuration.setMaxVariableNameLength(Integer.valueOf(new String(ch,start,length))); bmaxVariableNameLength=false;}
+                    if(bTypes){allowedTypes.add(new String(ch,start,length)); bTypes=false;}
+                    if(bModifier){accessModifiers.add(new String(ch,start,length)); bModifier=false;}
+                    if(bmaxRecurssionLevel){configuration.setMaxRecurssionLevel(Integer.valueOf(new String(ch,start,length))); bmaxRecurssionLevel=false;}
                 }
             };
 

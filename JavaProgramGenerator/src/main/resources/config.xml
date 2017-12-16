@@ -12,8 +12,9 @@
     <maxStringLength>20</maxStringLength>
     <maxVariableNameLength>10</maxVariableNameLength>
     <maxTotalLinesofCode>10000</maxTotalLinesofCode>
+    <maxRecurssionLevel>3</maxRecurssionLevel>
     <allowedTypes>
-        <type>int</type>
+        <type>int</type>0
         <type>float</type>
         <type>double</type>
         <type>boolean</type>

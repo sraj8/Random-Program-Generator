@@ -6,6 +6,7 @@ public class Configuration {
     private  int maxLinesOfCode, maxClasses, maxMethodCalls, maxMethodsInClass, maxInterfaces;
     private  int maxMethodsInInterface, maxInterfacesToImplement, maxIntValue, maxStringLength;
     private  int maxVariableNameLength;
+    private int maxRecurssionLevel;
     private  List<String> allowedTypes, accessModifiers;
 
     private Configuration(){};
@@ -114,4 +115,13 @@ public class Configuration {
     public void setAccessModifiers(List<String> accessModifiers) {
         this.accessModifiers = accessModifiers;
     }
+
+    public int getMaxRecurssionLevel() {
+        return maxRecurssionLevel;
+    }
+
+    public void setMaxRecurssionLevel(int maxRecurssion) {
+        this.maxRecurssionLevel = maxRecurssion;
+    }
+
 }

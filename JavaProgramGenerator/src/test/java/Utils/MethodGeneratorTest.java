@@ -28,9 +28,9 @@ public class MethodGeneratorTest {
         System.out.println(output);
     }
 
-    @Test
+    /*@Test
     public void testGenerateMethodsForClass(){
-        String output = MethodGenerator.generateMethodsforClass(classMethod,grammarMap,regexMap);
+        String output = MethodGenerator.generateMethodsforClass(classMethod,grammarMap,regexMap,);
         System.out.println(output);
-    }
+    }*/
 }
