@@ -1,6 +1,9 @@
 # Course project Random Java Program Generator
 
-
+- Akshay Vedpathak
+- Noman Mulla
+- Rohit Vibhu
+- Sylvester Savio Raj
 
 ### Overview
 The project creates a syntactically correct but semantically meaningless Java application. The input to our main program
@@ -42,3 +45,6 @@ The flow of our application is as below;
 
 
 ## Implementation Details
+
+1. Using Queues to Process Class,Interfaces, Inheritence, Methods and Loops
+2. Further, Uses Stacks to Process Expressions within Methods and Loops.
