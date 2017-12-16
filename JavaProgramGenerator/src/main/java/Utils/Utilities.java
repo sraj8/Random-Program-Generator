@@ -56,7 +56,7 @@ public class Utilities {
 
                 boolean bmaxLinesOfCode = false, bmaxClasses = false, bmaxMethodCalls = false, bmaxMethodsInClass = false, bmaxInterfaces = false;
                 boolean bmaxMethodsInInterface = false, bmaxInterfacesToImplement = false, bmaxIntValue = false, bmaxStringLength = false;
-                boolean bmaxVariableNameLength = false, bTypes = false, bModifier = false, bmaxRecurssionLevel = false;
+                boolean bmaxVariableNameLength = false, bTypes = false, bModifier = false, bmaxRecurssionLevel = false, bmaxClassNameLength = false, bmaxMethodNameLength = false;
 
                 @Override
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -73,6 +73,8 @@ public class Utilities {
                     if(qName.equalsIgnoreCase("type")){bTypes = true;}
                     if(qName.equalsIgnoreCase("modifier")){bModifier = true;}
                     if(qName.equalsIgnoreCase("maxRecurssionLevel")){bmaxRecurssionLevel = true;}
+                    if(qName.equalsIgnoreCase("maxClassNameLength")){bmaxClassNameLength = true;}
+                    if(qName.equalsIgnoreCase("maxMethodNameLength")){bmaxMethodNameLength = true;}
                 }
 
                 @Override
@@ -92,9 +94,13 @@ public class Utilities {
                     if(bmaxIntValue){configuration.setMaxIntValue(Integer.valueOf(new String(ch,start,length))); bmaxIntValue=false;}
                     if(bmaxStringLength){configuration.setMaxStringLength(Integer.valueOf(new String(ch,start,length))); bmaxStringLength=false;}
                     if(bmaxVariableNameLength){configuration.setMaxVariableNameLength(Integer.valueOf(new String(ch,start,length))); bmaxVariableNameLength=false;}
+                    if(bmaxClassNameLength){configuration.setMaxClassNameLength(Integer.valueOf(new String(ch,start,length))); bmaxClassNameLength=false;}
                     if(bTypes){allowedTypes.add(new String(ch,start,length)); bTypes=false;}
                     if(bModifier){accessModifiers.add(new String(ch,start,length)); bModifier=false;}
                     if(bmaxRecurssionLevel){configuration.setMaxRecurssionLevel(Integer.valueOf(new String(ch,start,length))); bmaxRecurssionLevel=false;}
+                    if(bmaxMethodNameLength){configuration.setMaxMethodNameLength(Integer.valueOf(new String(ch,start,length))); bmaxMethodNameLength=false;}
+
+
                 }
             };
 

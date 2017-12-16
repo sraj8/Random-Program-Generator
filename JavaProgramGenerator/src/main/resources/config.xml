@@ -10,7 +10,9 @@
     <maxInterfacesToImplement>4</maxInterfacesToImplement>
     <maxIntValue>100</maxIntValue>
     <maxStringLength>20</maxStringLength>
-    <maxVariableNameLength>10</maxVariableNameLength>
+    <maxVariableNameLength>5</maxVariableNameLength>
+    <maxMethodNameLength>5</maxMethodNameLength>
+    <maxClassNameLength>5</maxClassNameLength>
     <maxTotalLinesofCode>10000</maxTotalLinesofCode>
     <maxRecurssionLevel>3</maxRecurssionLevel>
     <allowedTypes>

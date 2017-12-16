@@ -5,9 +5,27 @@ import java.util.List;
 public class Configuration {
     private  int maxLinesOfCode, maxClasses, maxMethodCalls, maxMethodsInClass, maxInterfaces;
     private  int maxMethodsInInterface, maxInterfacesToImplement, maxIntValue, maxStringLength;
-    private  int maxVariableNameLength;
+    private  int maxVariableNameLength, maxClassNameLength, maxMethodNameLength;
     private int maxRecurssionLevel;
-    private  List<String> allowedTypes, accessModifiers;
+    private  List<String> allowedTypes;
+
+    public int getMaxMethodNameLength() {
+        return maxMethodNameLength;
+    }
+
+    public void setMaxMethodNameLength(int maxMethodNameLength) {
+        this.maxMethodNameLength = maxMethodNameLength;
+    }
+
+    public int getMaxClassNameLength() {
+        return maxClassNameLength;
+    }
+
+    public void setMaxClassNameLength(int maxClassNameLength) {
+        this.maxClassNameLength = maxClassNameLength;
+    }
+
+    private List<String> accessModifiers;
 
     private Configuration(){};
 
