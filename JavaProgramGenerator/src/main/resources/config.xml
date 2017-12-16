@@ -14,7 +14,7 @@
     <maxTotalLinesofCode>10000</maxTotalLinesofCode>
     <maxRecurssionLevel>3</maxRecurssionLevel>
     <allowedTypes>
-        <type>int</type>0
+        <type>int</type>
         <type>float</type>
         <type>double</type>
         <type>boolean</type>

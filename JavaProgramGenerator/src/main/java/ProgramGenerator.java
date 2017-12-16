@@ -1,11 +1,7 @@
 import Dao.ClassMethodDao;
 import Utils.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class ProgramGenerator {
 
@@ -65,39 +61,23 @@ public class ProgramGenerator {
 
         initializeAllDataHolders();
 
+        Configuration config = Utilities.parseConfigFile("src/main/resources/config.xml");
+
         //make list top-level mid-level and low-level
-        ReadFiles.readGrammarFile(topList,lowList,grammarMap,lowListElement,inheritenceLevel);
+        ReadFiles.readGrammarFile(topList,lowList,grammarMap,lowListElement,inheritenceLevel,config);
 
         //no changes required here
         ReadFiles.readRegexFile(regexMap);
 
 
-        queueProcessing();
+        queueProcessing(config);
 
-
-
+        GenerateAndCompile.generateAndCompileJavaFile(resultList);
         System.out.println(result.toString());
     }
 
-    private static void queueProcessingForInheritence() {
-        int inheritenceCount = 1;
 
-
-        while(inheritenceCount!=0){
-            Generator.populateQueue(topQueue,inheritenceLevel.get(0));
-
-            while(!topQueue.isEmpty()){
-
-            }
-
-
-        }
-
-
-    }
-
-
-    public static void queueProcessing() {
+    public static void queueProcessing(Configuration config) {
         /*
             1. read top queue one element at a time
                 a. if not in lowlist then remove
@@ -114,9 +94,9 @@ public class ProgramGenerator {
             4. for left queue - check for element in map and solve
             5. same for right queue
          */
-        int classCount = 3;
-        int interfaceCount=3;
-        int inheritenceCount=1;
+        int classCount = config.getMaxClasses();
+        int interfaceCount=config.getMaxInterfaces();
+        int inheritenceCount=2;
         String interfaceName = null;
 
 

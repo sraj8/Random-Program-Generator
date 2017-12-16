@@ -56,7 +56,7 @@ public class Utilities {
 
                 boolean bmaxLinesOfCode = false, bmaxClasses = false, bmaxMethodCalls = false, bmaxMethodsInClass = false, bmaxInterfaces = false;
                 boolean bmaxMethodsInInterface = false, bmaxInterfacesToImplement = false, bmaxIntValue = false, bmaxStringLength = false;
-                boolean bmaxVariableNameLength = false, bTypes = false, bModifier = false, bmaxRecurssionLevel = false;
+                boolean bmaxVariableNameLength = false, bTypes = false, bModifier = false, bmaxRecurssionLevel = false, bmaxLevelOfInheritence = false;
 
                 @Override
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {

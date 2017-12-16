@@ -8,5 +8,5 @@
 <interface_name>:='public' 'interface' <interface_name> '{' <abstract_method> '}'
 <abstract_method>:=<access_return_type> <method_name> '(' ')' ';'
 <access_return_type>:=void | int | float
-<access_modifier>:=public | private
+<access_modifier>:=public | public
 <access_type>:=int | float

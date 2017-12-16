@@ -12,11 +12,13 @@ public class GenerateAndCompile {
     public static void generateAndCompileJavaFile(List<String> javaCode){
         for(String source : javaCode) {
             File sourceFile = null;
-            String classSearch = "public class";
+            String classSearch = " class";
             String interfaceSearch = "public interface";
             String str = "";
             try {
-                if(source.contains(classSearch)) {
+                if(source.contains(classSearch) && source.contains("implements")){
+                    str= source.substring(source.indexOf(classSearch)+classSearch.length(),source.indexOf("implements"));
+                } else if(source.contains(classSearch)) {
                     str= source.substring(source.indexOf(classSearch)+classSearch.length(),source.indexOf("{"));
                 }else if(source.contains(interfaceSearch)) {
                     str= source.substring(source.indexOf(interfaceSearch)+interfaceSearch.length(),source.indexOf("{"));
@@ -35,13 +37,7 @@ public class GenerateAndCompile {
                 }
                 writer.close();
                 // compile the source file
-                JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-                StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
-                File parentDirectory = sourceFile.getParentFile();
-                fileManager.setLocation(StandardLocation.CLASS_OUTPUT, Arrays.asList(parentDirectory));
-                Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(Arrays.asList(sourceFile));
-                compiler.getTask(null, fileManager, null, null, null, compilationUnits).call();
-                fileManager.close();
+
 
             } catch (IOException e) {
                 e.printStackTrace();

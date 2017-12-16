@@ -1,10 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Queue;
-
-import static org.junit.Assert.*;
-
 public class ProgramGeneratorTest {
 
     ProgramGenerator programGenerator;
@@ -27,6 +23,6 @@ public class ProgramGeneratorTest {
     @Test
     public void queueProcessingTest() throws Exception {
 
-        ProgramGenerator.queueProcessing();
+        ProgramGenerator.queueProcessing(config);
     }
 }

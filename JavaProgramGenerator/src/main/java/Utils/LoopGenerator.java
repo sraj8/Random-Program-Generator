@@ -26,7 +26,7 @@ public class LoopGenerator {
                     result.append(" " + loopq.substring(1, loopq.length()-1));
             }
             else if (loopq.contains("<") && loopq.contains(">") && regexMap.containsKey(loopq)) {
-                var = (" " + Utilities.getRandomString(regexMap.get(loopq), 0, 1));
+                var = (" " + Utilities.getRandomString(regexMap.get(loopq), 3, 4));
                 if(loopq.contains("var")){prev = var;
 
                 }
