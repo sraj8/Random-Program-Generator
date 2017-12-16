@@ -1,7 +1,5 @@
-import Utils.Generator;
-import Utils.MethodGenerator;
-import Utils.ReadFiles;
-import Utils.Utilities;
+import Dao.ClassMethodDao;
+import Utils.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +12,7 @@ public class ProgramGenerator {
     static Stack<String> rightStack ;
 
     static StringBuffer result ;
+    static String className;
 
     static Queue<String> leftQueue;
 
@@ -113,14 +112,15 @@ public class ProgramGenerator {
                         String lowContent = topQueue.peek();
 
                         if (lowContent.equals("<expression>")) {
-                             String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap);
+                             String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap, 10);
                              result.append(" " + resultFromExpression);
                           //  System.out.println("Result from expression-"+resultFromExpression);
                            // result.append(" <expression>");
                         }else if(lowContent.equals("<abstract_method>")){
                             result.append(" "+ MethodGenerator.generateMethodsforInterface(lowList.get(2),grammarMap,regexMap));
                         }else if(lowContent.equals("<class_method>")){
-                            result.append(" "+ MethodGenerator.generateMethodsforClass(lowList.get(1),grammarMap,regexMap,lowList));
+                            String classMethod = MethodGenerator.generateMethodsforClass(lowList.get(1),grammarMap,regexMap,lowList, className);
+                            result.append(" "+ classMethod);
                         }
 
 
@@ -151,7 +151,9 @@ public class ProgramGenerator {
 
                     } else {
                         if (element.contains("<") && element.contains(">") && regexMap.containsKey(element)) {
-                            result.append(" " + Utilities.getRandomString(regexMap.get(element), 0, 5));
+                            className = Utilities.getRandomString(regexMap.get(element), 0, 5);
+                            HierarchyMapper.setHierarchyDetails(className,className);
+                            result.append(" " + className);
 
                         } else if (element.contains("'")) {
                             result.append(" " + element.substring(1, element.length() - 1));
