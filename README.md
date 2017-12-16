@@ -1,22 +1,25 @@
-# Course project at git@bitbucket.org:drmark/randomjavaprogramgenerator.git
-### Description: create a random Java program generator
-### Grade: 25%
+# Course project Random Java Program Generator
 
-## Overview
-In your course project, you will gain experience with creating a generator that creates a syntactically correct but semantically meaningless Java application. The input to your program is a configuration file that defines various parameters that constrain the generation of a Java application (e.g., the number of lines of code and the number of classes).  The git repo for HW4 can be cloned using the command `git clone git@bitbucket.org:drmark/randomjavaprogramgenerator.git`.
+### Overview
+The project creates a syntactically correct but semantically meaningless Java application. The input to our main program is a configuration file that defines various parameters that constrain the generation of a Java application (e.g., the number of lines of code and the number of classes).
+Once the constrains are identified the program parses a grammar file that is the crux of random code generation.
 
-Consider the following simple grammar that contains seven production rules:
+We have used a BNF grammar format for the grammar file as shown below;
+ 
 ```
-<expression> ::= <expression> + <expression>	//production rule 1
-<expression> ::= <expression> - <expression>	//production rule 2
-<expression> ::= <expression> × <expression>	//production rule 3
-<expression> ::= ( <expression> )				//production rule 4
-<expression> ::= <number> | <var>				//production rule 5
-<number> 	 ::= 0 | [1-9][0-9]*				//production rule 6
-<var> ::= [_a-zA-Z][_a-zA-Z0-9]{1,255}			//production rule 7
+<expression>:=<access_type> <var> = <exp> <op> <exp>
+<op>:=+ | - | *
+<exp>:=<exp> <op> <exp> | <digit>
+<class_name>:=<access_modifier> 'class' <class_name> '{' <expression> <class_method> '}'
+<inheritence>:=<access_modifier> 'class' <class_name> 'implements' <previous_interface_name> '{' <interface_methods> <class_method> '}'
+<class_method>:=<access_modifier> 'void' <method_name> '(' ')' '{' <for_loop> <expression> '}'
 ```
 
-Suppose that you use a random number generator to choose a top-level production rule that ranges from 1 to 5. The random number generator produces the number 3, which corresponding to the rule `<expression> ::= <expression> × <expression>`. The chosen production rule creates a main template for your generated program, `<expression> × <expression>`. At this point, you run the random number generator twice to choose production rules for each nonterminal <expression>. Suppose that the generated random numbers are 2 and 5 respectively. Thus, the expression is transformed into the following `<expression> - <expression>` for the left of `x` and `<number> | <var>` for the right side of `x`. For the latter we generate a random number between 6 and 7, say it is 7 and we continue with the left hand side eventually replacing all nonterminals <expression>. Suppose that the result is `(<number> - <var>) x <var>`. At this point, we use a random string generator to match regular expressions (for example, [github regex generator](https://github.com/fent/randexp.js) or some other regex generator) and obtain the resulting program `(231 - xy09) x jk3049`. This is your resulting randomly generated program.
+The program parses the grammar file: "src/resources/grammar.txt" and two lists:
+1. Top-Level list: Contains top-level rules such as class and interface definitions
+2. Low-Level list Contains low-level rules such as method declarations, expressions etc.
+
+
 
 Consider that every program is an instance of the grammar of the language in which this program is written. Typically, grammars are used in compiler construction to write parsers that check the syntactic validity of a program and transform its source code into a parse tree. An opposite use of the grammar is to generate branches of a parse tree for different production rules, where each rule is assigned the probability with which it is instantiated in a program. These grammars and parse trees are called stochastic, and they are widely used in natural language processing, speech recognition, information retrieval, and also in generating SQL statements for testing database engines. It is equivalent to assigning some number between zero and one to each production rule in a grammar and generating a program from it randomly. Consider an example of the parse tree for the GCD program in the Scott's textbook on page 31. The parse tree shows the instantiation of the grammar rules for the GCD program. Now, consider that this tree is obtained by randomly selecting production rules. There is a small chance that the GCD program can be generated, however, it is likelier that you will generate a syntactically correct but semantically meaningless program.
  
