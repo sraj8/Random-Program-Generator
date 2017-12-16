@@ -30,7 +30,7 @@ The configuration file (src/main/resources/config.xml) serves the purpose of def
 
 The flow of our application is as below;
 
- ![image](etc/flow_chart.PNG)
+ ![image](JavaProgramGenerator/etc/flow_chart.PNG)
 
 ## Setup and Running the project
 1. Clone the project from `https://akshayv22@bitbucket.org/sylvestersavioraj/akshay_vedpathak_mohammed_noman_mulla_rohit_vibhu_channananjun.git`
