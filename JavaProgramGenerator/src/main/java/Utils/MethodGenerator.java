@@ -40,7 +40,6 @@ public class MethodGenerator {
             }else if(split[i].contains("method_name")){
                 String regex = regexMap.get(split[i]);
                 String name = Utilities.getRandomString(regex,3,8);
-                HierarchyMapper.setHierarchyDetails(className, name);
                 methodDeclaration.append(name+" ");
             }else if(split[i].contains("<expression>")){
 
@@ -48,7 +47,7 @@ public class MethodGenerator {
 
             }else if(split[i].contains("<for_loop>")){
 
-                methodDeclaration.append(LoopGenerator.loopEvaluator(grammerMap.get("<for_loop>"),regexMap));
+                methodDeclaration.append(LoopGenerator.loopEvaluator(lowList,grammerMap.get("<for_loop>"),grammerMap,regexMap));
 
             }
             else if(split[i].charAt(0)=='\''){

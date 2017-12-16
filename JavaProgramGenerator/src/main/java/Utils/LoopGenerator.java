@@ -1,26 +1,23 @@
 package Utils;
 
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 import static Utils.Generator.getSplittedArray;
 
 public class LoopGenerator {
 
-    public static String loopEvaluator(String loopExpression, Map<String,String> regexMap){
+    public static String loopEvaluator(List<String> lowList, String loopExpression, Map<String,String> grammarMap, Map<String,String> regexMap){
         StringBuffer result =new StringBuffer();
         Queue<String> loopQueue = new LinkedList<>();
         String splittedExp[] = getSplittedArray(loopExpression);
         for (String splitted : splittedExp){
             loopQueue.add(splitted);
         }
-
-        evaluateLoopExpression(loopQueue, result, regexMap);
+        evaluateLoopExpression(lowList,loopQueue, result, grammarMap, regexMap);
         return result.toString();
     }
 
-    private static void evaluateLoopExpression(Queue<String> loopQueue, StringBuffer result, Map<String,String> regexMap) {
+    private static void evaluateLoopExpression(List<String> lowList, Queue<String> loopQueue, StringBuffer result, Map<String,String> grammarMap, Map<String,String> regexMap) {
         String var = "";
         String prev = "";
         for (String loopq : loopQueue) {
@@ -30,18 +27,22 @@ public class LoopGenerator {
             }
             else if (loopq.contains("<") && loopq.contains(">") && regexMap.containsKey(loopq)) {
                 var = (" " + Utilities.getRandomString(regexMap.get(loopq), 0, 1));
-                if(loopq.contains("var")){
-                    prev = var;
+                if(loopq.contains("var")){prev = var;
+
                 }
                 result.append(var);
             }
             else if (loopq.contains("var_prev")){
                 result.append(prev);
             }
+            else if (loopq.contains("expression")) {
+                    String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap, 10);
+                    result.append(" " + resultFromExpression);
+            }
         }
     }
 
-    public static String generateWhileLoop(String grammar, Map<String,String> grammarMap, Map<String,String> regexMap){
+    public static String generateWhileLoop(String grammar, Map<String,String> regexMap){
         StringBuilder whileDeclaration = new StringBuilder();
         String split[] = grammar.split(" ");
         for(int i=0;i<split.length;i++){
