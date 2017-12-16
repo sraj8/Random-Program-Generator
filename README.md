@@ -1,7 +1,7 @@
 # Course project Random Java Program Generator
 
 - Akshay Vedpathak
-- Noman Mulla
+- Mohammed Noman Mulla
 - Rohit Vibhu
 - Sylvester Savio Raj
 
