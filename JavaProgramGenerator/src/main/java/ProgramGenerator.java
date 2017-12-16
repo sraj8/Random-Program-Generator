@@ -21,6 +21,7 @@ public class ProgramGenerator {
     static Map<String,String> regexMap;
 
     static Utilities utilities;
+    static Configuration config;
 
     static List<String> topList;
     static  List<String> lowList;
@@ -61,6 +62,7 @@ public class ProgramGenerator {
 
 
     public static void main(String[] args) {
+        config = Utilities.parseConfigFile("resources\\config.xml");
         utilities = new Utilities();
 
         initializeAllDataHolders();
@@ -142,17 +144,17 @@ public class ProgramGenerator {
                         String lowContent = topQueue.peek();
 
                         if (lowContent.equals("<expression>")) {
-                             String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap, 10);
+                             String resultFromExpression = Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap, config.getMaxRecurssionLevel());
                              result.append(" " + resultFromExpression);
                           //  System.out.println("Result from expression-"+resultFromExpression);
                            // result.append(" <expression>");
                         }else if(lowContent.equals("<abstract_method>")){
-                            String abstractMethod =  MethodGenerator.generateMethodsforInterface(lowList.get(2),grammarMap,regexMap);
+                            String abstractMethod =  MethodGenerator.generateMethodsforInterface(lowList.get(2),grammarMap,regexMap,config);
 
                             HierarchyMapper.setHierarchyDetails(className, abstractMethod);
                             result.append(" "+ abstractMethod);
                         }else if(lowContent.equals("<class_method>")){
-                            String classMethod = MethodGenerator.generateMethodsforClass(lowList.get(1),grammarMap,regexMap,lowList, className);
+                            String classMethod = MethodGenerator.generateMethodsforClass(lowList.get(1),grammarMap,regexMap,lowList, className,config);
                             result.append(" "+ classMethod);
                         }
 
@@ -180,7 +182,7 @@ public class ProgramGenerator {
                             for(String interfaceMethod: interfaceMethods){
                                 String methodDef = interfaceMethod.substring(0,interfaceMethod.indexOf(";"));
                                 result.append(" "+methodDef+"\n"+"{");
-                                result.append(" "+ Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap, 10));
+                                result.append(" "+ Generator.evaluateExpression(lowList.get(0),grammarMap,regexMap, config.getMaxRecurssionLevel()));
                                 if(methodDef.contains("int") || methodDef.contains("float")){
                                     result.append("return 1;"+"\n");
 
@@ -209,7 +211,7 @@ public class ProgramGenerator {
 
                     } else {
                         if (element.contains("<") && element.contains(">") && regexMap.containsKey(element)) {
-                            className = Utilities.getRandomString(regexMap.get(element), 0, 5);
+                            className = Utilities.getRandomString(regexMap.get(element), 0, config.getMaxClassNameLength());
                             HierarchyMapper.setHierarchyDetails(className,className);
                             result.append(" " + className);
 
