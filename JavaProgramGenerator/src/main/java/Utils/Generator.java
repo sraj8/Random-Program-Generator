@@ -14,7 +14,7 @@ public class Generator {
         //random 0 -
         String grammar = "";
         if(topList.size() > 0) {
-            if(classCount>=1 && interfaceCount>=1)
+            if(classCount>0 && interfaceCount>0)
                 grammar = getRandomTopElement(topList);
             else{
                 if(classCount<=0)
@@ -23,6 +23,10 @@ public class Generator {
                     grammar = topList.get(0);
             }
         }
+        populateQueue(topQueue, grammar);
+    }
+
+    public static void populateQueue(Queue<String> topQueue, String grammar) {
         String splittedArray[]= {};
         splittedArray = getSplittedArray(grammar);
         for (String splitted : splittedArray) {

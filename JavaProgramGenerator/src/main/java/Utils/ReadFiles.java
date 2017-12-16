@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ReadFiles {
 
-    public static void readGrammarFile(List<String> topList, List<String> lowList, Map<String,String> grammarMap, Map<String,Integer> lowListElement){
+    public static void readGrammarFile(List<String> topList, List<String> lowList, Map<String,String> grammarMap, Map<String,Integer> lowListElement,List<String> inheritenceLevel){
         Scanner fileScan = Utilities.getScanner("src/main/resources/grammar.txt");
         while(fileScan.hasNextLine()){
             String line = fileScan.nextLine();
@@ -14,8 +14,9 @@ public class ReadFiles {
                 topList.add(line.replace("<class_name>:=",""));
             }else if(line.contains("<interface_name>:=")){
                 topList.add(line.replace("<interface_name>:=",""));
-            }
-            else if(line.contains("<expression>:=")){
+            }else if(line.contains("<inheritence>:=")){
+                inheritenceLevel.add(line.replace("<inheritence>:=",""));
+            }else if(line.contains("<expression>:=")){
                 lowListElement.put("<expression>",3);
                 lowList.add(line.replace("<expression>:=",""));
             } else if(line.contains("<abstract_method>:=")){
